@@ -1,0 +1,7 @@
+{
+  "name": "OnBoardApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
