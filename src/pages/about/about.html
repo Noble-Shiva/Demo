@@ -1,11 +1,56 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-navbar>
+      <ion-title>Profile</ion-title>
+    </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="updateForm" (ngSubmit)="update()">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>First Name</ion-label>
+            <ion-input name="firstName" type="text" [(ngModel)]="firstName" formControlName="firstName" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Middle Name</ion-label>
+            <ion-input name="middleName" type="text" [(ngModel)]="middleName" formControlName="middleName" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input name="lastname" type="text" [(ngModel)]="lastname" formControlName="lastname" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>User Name</ion-label>
+            <ion-input name="username" type="text" [(ngModel)]="username" formControlName="username" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input name="password" type="password" [(ngModel)]="password" formControlName="password" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Confirm Password</ion-label>
+            <ion-input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" formControlName="confirmPassword" required></ion-input>
+          </ion-item>
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          <ion-item>
+            <ion-label floating>Email Id</ion-label>
+            <ion-input name="email" type="email" [(ngModel)]="email" formControlName="email" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Mobile No.</ion-label>
+            <ion-input name="mobile" type="tel" [(ngModel)]="mobile" formControlName="mobile" required></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button block large type="submit" [disabled]="!updateForm.valid">Update</button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

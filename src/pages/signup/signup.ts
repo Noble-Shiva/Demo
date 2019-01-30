@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserModel } from '../../model/user.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { SharedProvider } from '../../providers/shared/shared';
 
+/**
+ * Generated class for the SignupPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+  selector: 'page-signup',
+  templateUrl: 'signup.html',
 })
-export class AboutPage implements OnInit {
+export class SignupPage implements OnInit {
 
   firstName: any;
   middleName: any;
@@ -21,26 +28,14 @@ export class AboutPage implements OnInit {
   email: any;
   mobile: number;
   user: UserModel;
-  updateForm: any;
+  signUpForm: any;
   error: any;
 
-  constructor(public navCtrl: NavController, public storage: Storage, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
     public authProvider: AuthProvider, public sharedProvider: SharedProvider) {}
 
   ngOnInit() {
-    this.storage.get('user').then((data) => {
-      this.user = data;
-      this.firstName = this.user.firstName;
-      this.middleName = this.user.middleName;
-      this.lastname = this.user.lastname;
-      this.username = this.user.username;
-      this.password = this.user.password;
-      this.confirmPassword = this.user.confirmPassword;
-      this.email = this.user.email;
-      this.mobile = this.user.mobile;
-    })
-
-    this.updateForm = new FormGroup({
+    this.signUpForm = new FormGroup({
       firstName: new FormControl(this.firstName, Validators.required),
       middleName: new FormControl(this.middleName, Validators.required),
       lastname: new FormControl(this.lastname, Validators.required),
@@ -52,17 +47,23 @@ export class AboutPage implements OnInit {
     });
   }
 
-  update() {
-    this.user = this.updateForm.value;
-    this.sharedProvider.showLoader('Updating. Please wait...!');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SignupPage');
+  }
+
+  signUp() {
+    this.user = this.signUpForm.value;
+    this.sharedProvider.showLoader('Signing Up. Please wait...!');
     if(this.user.password == this.user.confirmPassword) {
-      this.authProvider.update(this.user).then((data) => {
-        this.sharedProvider.showToast('Updated Successfully!')
+      this.authProvider.signUp(this.user).then((data) => {
         this.sharedProvider.hideLoader();
+        this.sharedProvider.showToast('Signup Successful. Please Login in!');
+        this.navCtrl.pop();
       });
     } else {
       this.sharedProvider.showToast('Both the passwords should be same!')
       this.sharedProvider.hideLoader();
     }
   }
+
 }
