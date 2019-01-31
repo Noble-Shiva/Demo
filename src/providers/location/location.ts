@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class LocationProvider {
 
-  API_KEY = "AIzaSyBMUq797-zkzoW-BweWwKwWLNRsIAJJTfY";
+  API_KEY = "xxxxxx";
   
   constructor(public http: HttpClient, private geolocation: Geolocation) {
     console.log('Hello LocationProvider Provider');
